@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { InputListComponent } from './input-list/input-list.component';
-import { ButtonsComponent } from './buttons/buttons.component';
+import { InputListComponent } from './components/input-list/input-list.component';
+import { ButtonsComponent } from './components/buttons/buttons.component';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,8 @@ import { ButtonsComponent } from './buttons/buttons.component';
     ButtonsComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

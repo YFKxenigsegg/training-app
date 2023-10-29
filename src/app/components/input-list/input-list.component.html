@@ -1,0 +1,3 @@
+<div *ngFor="let input of inputs$ | async; let i = index; trackBy: trackByFn">
+    <input [ngModel]="input" (ngModelChange)="onInputChange(i, $event)">
+</div>

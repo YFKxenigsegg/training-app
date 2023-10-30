@@ -1,0 +1,28 @@
+.card {
+  background-color: white;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-left: 1rem solid;
+  border-left-color: green;
+}
+
+.card-header {
+  display: flex;
+  .card-title {
+    text-align: left;
+  }
+  .card-icons {
+    text-align: left;
+  }
+}
+
+h3 {
+  color: lightgrey;
+  margin: 0;
+}
+
+h1 {
+  color: black;
+}

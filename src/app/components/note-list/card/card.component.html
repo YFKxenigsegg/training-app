@@ -1,0 +1,17 @@
+<div class="card">
+    <div class="card-header">
+        <div class="card-title">
+            <h1>{{ note.Title }}</h1>
+        </div>
+        <div class="card-icons">
+            <i class="bi bi-trash"></i>
+            <i *ngIf="note.IsFavorite; else otherIcon" class="bi bi-star-fill"></i>
+            <ng-template #otherIcon>
+                <i class="bi bi-star"></i>
+            </ng-template>
+        </div>
+    </div>
+    <div class="card-details">
+        <h3>{{ note.Details }}</h3>
+    </div>
+</div>

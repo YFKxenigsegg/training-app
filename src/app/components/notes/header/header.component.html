@@ -1,0 +1,8 @@
+<div class="header-container">
+    <div class="add-button">
+        +
+    </div>
+    <button class="tag" *ngFor="let tag of tags" (click)="filterBy(tag)">
+        {{ tag }}
+    </button>
+</div>

@@ -1,0 +1,11 @@
+.sidebar-card {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #e1e1e1;
+}
+
+.selected {
+  border-left: solid blue;
+  background-color: #f5f5f5;
+}

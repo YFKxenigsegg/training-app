@@ -1,0 +1,13 @@
+<div class="card">
+    <div class="card-header">
+        <div class="name">
+            {{ name }}
+        </div>
+        <div>
+            <i *ngFor="let icon of icons" class="bi {{icon}}"></i>
+        </div>
+    </div>
+    <div class="card-details">
+        <ng-content></ng-content>
+    </div>
+</div>

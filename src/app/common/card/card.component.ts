@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { Note } from 'src/app/models/note.interface';
 
 @Component({
   selector: 'app-card',
@@ -7,5 +6,6 @@ import { Note } from 'src/app/models/note.interface';
   styleUrls: ['./card.component.css']
 })
 export class CardComponent {
-  @Input() note: Note;
+  @Input() name = '';
+  @Input() icons: string[] = [];
 }

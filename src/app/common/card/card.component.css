@@ -5,24 +5,18 @@
   flex-direction: column;
   gap: 10px;
   border-left: 1rem solid;
-  border-left-color: green;
 }
 
 .card-header {
   display: flex;
-  .card-title {
-    text-align: left;
-  }
-  .card-icons {
-    text-align: left;
-  }
+  justify-content: space-between;
 }
 
-h3 {
-  color: lightgrey;
-  margin: 0;
+.name {
+  font-size: large;
+  font-weight: bold;
 }
 
-h1 {
-  color: black;
+.card-details {
+  color: grey
 }

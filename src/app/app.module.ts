@@ -3,37 +3,31 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { NoteListComponent } from './components/note-list/note-list.component';
-import { HeaderComponent } from './components/note-list/header/header.component';
-import { ListComponent } from './components/note-list/list/list.component';
+import { NotesComponent } from './components/notes/notes.component';
+import { HeaderComponent } from './components/notes/header/header.component';
+import { NoteListComponent } from './components/notes/note-list/note-list.component';
 import { SearchComponent } from './components/sidebar/search/search.component';
-import { CardComponent } from './components/note-list/card/card.component';
-import { MatListModule } from '@angular/material/list';
-import { MatIconModule } from '@angular/material/icon';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CardComponent } from '../app/common/card/card.component';
+import { NoteCardComponent } from './components/notes/note-card/note-card.component';
+import { SidebarListComponent } from './components/sidebar/sidebar-list/sidebar-list.component';
+import { SidebarCardComponent } from './components/sidebar/sidebar-card/sidebar-card.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SidebarComponent,
-    NoteListComponent,
+    NotesComponent,
     HeaderComponent,
-    ListComponent,
+    NoteListComponent,
+    CardComponent,
+    NoteCardComponent,
+    SidebarComponent,
     SearchComponent,
-    CardComponent
+    SidebarListComponent,
+    SidebarCardComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule,
-    MatIconModule,
-    MatListModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatSidenavModule,
-    BrowserAnimationsModule
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

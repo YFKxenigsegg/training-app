@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Tag } from 'src/app/models/enums/tag.enum';
 import { NoteService } from 'src/app/services/note.service';
-import { Tags } from "../../../consts/tags";
 
 @Component({
   selector: 'app-header',

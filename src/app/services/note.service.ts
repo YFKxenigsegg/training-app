@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Note } from '../models/interfaces/note.interface';
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, combineLatestWith } from "rxjs";
 import { map, withLatestFrom } from "rxjs/operators";
 import { Tag } from '../models/enums/tag.enum';
 import { Tab } from '../models/interfaces/tab.interface';
@@ -35,24 +35,33 @@ export class NoteService {
   ];
   private notesSrc = new BehaviorSubject<Note[]>(this.mockedData);
   private searchSrc = new BehaviorSubject<string>('');
-  currentNotes$;
-  search$ = this.searchSrc.asObservable();
+  private tabsSrc = new BehaviorSubject<string>(Tabs.AllNotes);
+  private tagsSrc = new BehaviorSubject<string>('');
   allNotes$ = this.notesSrc.asObservable();
-  deletedNotes$ = this.allNotes$.pipe(
-    map(notes => notes.filter(x => x.isDeleted))
-  );
-  favoriteNotes$ = this.allNotes$.pipe(
-    map(notes => notes.filter(x => x.isFavorite))
-  );
-  searchedNotes$ = this.allNotes$.pipe(
-    withLatestFrom(this.search$),
-    map(([notes, search]) => {
-      notes.filter(x => x.title.includes(search));
-    })
-  );
+  search$ = this.searchSrc.asObservable();
+  tabs$ = this.tabsSrc.asObservable();
+  tags$ = this.tagsSrc.asObservable();
+  currentNotes$;
 
   constructor() {
-    this.currentNotes$ = this.allNotes$;
+    this.currentNotes$ = this.allNotes$.pipe(
+      combineLatestWith(this.search$, this.tabs$, this.tags$),
+      map(([notes, search, tabs, tags]) => {
+        return notes
+          .filter(x => x.title.includes(search))
+          .filter(x => {
+            if (tabs === Tabs.Trash) {
+              return x.isDeleted;
+            } else if (tabs === Tabs.Favorite) {
+              return x.isFavorite;
+            }
+            return !x.isDeleted;
+          })
+          .filter(x => {
+            return tags ? tags === x.tag : true;
+          })
+      })
+    );
   }
 
   create(note: Note) {
@@ -65,25 +74,10 @@ export class NoteService {
   }
 
   filterBy(tag: Tag) {
-    this.currentNotes$ = this.currentNotes$.pipe(
-      map(notes => notes.filter(x => x.tag === tag))
-    );
+    this.tagsSrc.next(tag);
   }
 
   showTab(tab: Tab) {
-    switch (tab.name) {
-      case Tabs.AllNotes:
-        this.currentNotes$ = this.allNotes$;
-        break;
-      case Tabs.Trash:
-        this.currentNotes$ = this.deletedNotes$;
-        break;
-      case Tabs.Favorite:
-        this.currentNotes$ = this.favoriteNotes$;
-        break;
-      default:
-        this.currentNotes$ = this.allNotes$;
-        break;
-    }
+    this.tabsSrc.next(tab.name);
   }
 }

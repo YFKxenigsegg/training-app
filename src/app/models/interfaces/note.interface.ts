@@ -5,5 +5,5 @@ export interface Note {
     details: string;
     isDeleted: boolean;
     isFavorite: boolean;
-    tag: string;
+    tag: Tag;
 }

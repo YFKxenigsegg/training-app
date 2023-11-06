@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NoteService } from 'src/app/services/note.service';
 
 @Component({
   selector: 'app-search',
@@ -7,11 +8,12 @@ import { Component } from '@angular/core';
 })
 export class SearchComponent {
   query: string = '';
-  
+
+  constructor(private noteService: NoteService) { }
+
   performSearch(): void {
     if (this.query) {
-      // Do your search logic here
-      console.log('Search for:', this.query);
+      this.noteService.search(this.query);
     }
   }
 }

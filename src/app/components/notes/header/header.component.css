@@ -23,15 +23,3 @@
   font-family: Arial;
   font-size: 10px;
 }
-
-.tag:nth-child(2) {
-  background-color: #e0c7f7;
-}
-
-.tag:nth-child(3) {
-  background-color: #f7c4c4;
-}
-
-.tag:nth-child(4) {
-  background-color: #f7d7c4;
-}

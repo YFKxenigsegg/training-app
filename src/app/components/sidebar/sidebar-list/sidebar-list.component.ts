@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { Icons } from 'src/app/consts/icons';
 import { Tabs } from 'src/app/consts/tabs';
-import { Tab } from 'src/app/models/interfaces/tab.interface';
 import { NoteService } from 'src/app/services/note.service';
 
 @Component({
@@ -10,27 +8,14 @@ import { NoteService } from 'src/app/services/note.service';
   styleUrls: ['./sidebar-list.component.css']
 })
 export class SidebarListComponent {
-  tabs: Tab[] = [
-    {
-      name: Tabs.AllNotes,
-      icon: Icons.FILE_TEXT
-    },
-    {
-      name: Tabs.Trash,
-      icon: Icons.TRASH
-    },
-    {
-      name: Tabs.Favorite,
-      icon: Icons.STAR
-    }
-  ];
+  tabs = Tabs;
 
   constructor(private noteService: NoteService) { }
 
-  onTabClicked(clickedTab: Tab) {
+  onTabClicked(tabName: string) {
     for (let tab of this.tabs) {
-      tab.isSelected = (tab === clickedTab);
+      tab.isSelected = (tab.name === tabName);
     }
-    this.noteService.showTab(clickedTab)
+    this.noteService.showTab(tabName)
   }
 }

@@ -1,3 +1,4 @@
 <div>
-    <app-sidebar-card *ngFor="let tab of tabs" [tab]="tab" (selected)="onTabClicked($event)"></app-sidebar-card>
+    <app-sidebar-card *ngFor="let tab of tabs" [name]="tab.name"
+        (tabSelected)="onTabClicked($event)"></app-sidebar-card>
 </div>

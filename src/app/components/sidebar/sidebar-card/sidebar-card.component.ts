@@ -1,5 +1,4 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Tab } from 'src/app/models/interfaces/tab.interface';
 
 @Component({
   selector: 'app-sidebar-card',
@@ -7,10 +6,12 @@ import { Tab } from 'src/app/models/interfaces/tab.interface';
   styleUrls: ['./sidebar-card.component.css']
 })
 export class SidebarCardComponent {
-  @Input() tab: Tab;
-  @Output() selected = new EventEmitter<Tab>();
+  @Input() name: string;
+  @Input() icon: string;
+  @Input() isSelected: boolean;
+  @Output() tabSelected = new EventEmitter<string>();
 
   selectTab(): void {
-    this.selected.emit(this.tab);
+    this.tabSelected.emit(this.name);
   }
 }

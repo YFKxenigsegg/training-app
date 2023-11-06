@@ -1,33 +1,35 @@
-import { Component } from '@angular/core';
-import { Tag } from 'src/app/models/enums/tag.enum';
+import { Component, OnInit } from '@angular/core';
+import { Tag } from '../../../models/interfaces/tag.interface';
 import { NoteService } from 'src/app/services/note.service';
+import { TagService } from 'src/app/services/tag.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent {
-  tags = [Tag.SHOPPING, Tag.BUSINESS, Tag.OTHERTHINGS];
+export class HeaderComponent implements OnInit {
+  tags: Tag[];
+  labels: any[];
 
-  // tags = [
-  //   {
-  //     tag: Tag.SHOPPING,
-  //     color: 'red'
-  //   },
-  //   {
-  //     tag: Tag.BUSINESS,
-  //     color: 'yellow'
-  //   },
-  //   {
-  //     tag: Tag.OTHERTHINGS,
-  //     color: 'green'
-  //   }
-  // ];
+  constructor(private noteService: NoteService, private tagService: TagService) { }
 
-  constructor(private noteService: NoteService) { }
+  ngOnInit(): void {
+    this.tags = this.tagService.getAll();
+    this.labels = this.tags.map(x => ({
+      ...x,
+      isSelected: false
+    }));
+  }
 
-  filterBy(tag: Tag) {
-    this.noteService.filterBy(tag);
+  filterBy(value: string) {
+    const label = this.labels.find(x => x.value === value);
+    if (!label.isSelected) {
+      label.isSelected = true;
+      this.noteService.filterBy(value);
+    } else {
+      label.isSelected = false;
+      // this.noteService.filterBy(''); ??
+    }
   }
 }

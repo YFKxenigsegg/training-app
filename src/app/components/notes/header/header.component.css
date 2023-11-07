@@ -22,4 +22,9 @@
   margin-right: 8px;
   font-family: Arial;
   font-size: 10px;
+  border: 2px solid transparent;
+}
+
+.tag-selected {
+  border: 2px solid currentColor;
 }

@@ -12,8 +12,6 @@ export class SearchComponent {
   constructor(private noteService: NoteService) { }
 
   performSearch(): void {
-    if (this.query) {
-      this.noteService.search(this.query);
-    }
+    this.noteService.search(this.query);
   }
 }

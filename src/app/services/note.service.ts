@@ -39,8 +39,7 @@ export class NoteService {
         value: 'other things',
         color: 'orange'
       }
-    }
-    ,
+    },
     {
       title: 'Business note',
       details: 'Invest money',
@@ -55,18 +54,16 @@ export class NoteService {
   private notesSrc = new BehaviorSubject<Note[]>(this.mockedData);
   private searchSrc = new BehaviorSubject<string>('');
   private tabsSrc = new BehaviorSubject<string>(TabNames.ALL_NOTES);
-  private tagsSrc = new BehaviorSubject<string[]>([]);
+  private selectedTagsSrc = new BehaviorSubject<Set<string>>(new Set());
   allNotes$ = this.notesSrc.asObservable();
   search$ = this.searchSrc.asObservable();
   tabs$ = this.tabsSrc.asObservable();
-  tags$ = this.tagsSrc.asObservable();
+  selectedTags$ = this.selectedTagsSrc.asObservable();
   currentNotes$;
 
   constructor(private tagService: TagService) {
-    this.tagsSrc.next(tagService.getAll()
-      .map(x => x.value));
     this.currentNotes$ = this.allNotes$.pipe(
-      combineLatestWith(this.search$, this.tabs$, this.tags$),
+      combineLatestWith(this.search$, this.tabs$, this.selectedTags$),
       map(([notes, search, tabs, tags]) => {
         return notes
           .filter(x => x.title.toLowerCase().includes(search))
@@ -79,7 +76,7 @@ export class NoteService {
             return !x.isDeleted;
           })
           .filter(x => {
-            return tags ? tags.includes(x.tag.value) : true;
+            return tags.size ? tags.has(x.tag.value) : true;
           })
       })
     );
@@ -94,19 +91,17 @@ export class NoteService {
     this.searchSrc.next(text.toLowerCase());
   }
 
-  filterBy(value: string) {
-    const currentValue = this.tagsSrc.getValue();
-    if (!this.tagsSrc.value.includes(value)) {
-      this.tagsSrc.next([...currentValue, value]);
-      console.log(currentValue); //delete duplication
-    }
-    else {
-      console.log(currentValue + '236');
-      this.tagsSrc.next([value]);
-    }
-  }
-
   showTab(name: string) {
     this.tabsSrc.next(name);
+  }
+
+  toggleTag(value: string) {
+    const selectedTags = this.selectedTagsSrc.getValue();
+    if (selectedTags.has(value)) {
+      selectedTags.delete(value);
+    } else {
+      selectedTags.add(value);
+    }
+    this.selectedTagsSrc.next(selectedTags); // ?
   }
 }

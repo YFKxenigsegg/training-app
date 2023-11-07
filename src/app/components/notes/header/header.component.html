@@ -1,6 +1,9 @@
 <div class="header-container">
     <div class="add-button">+</div>
-    <label class="tag" [style.background-color]="tag.color" *ngFor="let tag of tags" (click)="filterBy(tag.value)">
-        {{ tag.value }}
-    </label>
+    <ng-container *ngIf="selectedTags$ | async as selectedTags">
+        <label class="tag" [class.tag-selected]="selectedTags.has(tag.value)" [style.background-color]="tag.color"
+            *ngFor="let tag of tags" (click)="filterBy(tag.value)">
+            {{ tag.value }}
+        </label>
+    </ng-container>
 </div>
